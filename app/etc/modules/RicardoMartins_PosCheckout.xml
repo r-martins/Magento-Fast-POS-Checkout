@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <RicardoMartins_PosCheckout>
+      <active>true</active>
+      <codePool>community</codePool>
+      <version>0.1.0</version>
+    </RicardoMartins_PosCheckout>
+  </modules>
+</config>
