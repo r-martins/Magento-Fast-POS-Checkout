@@ -48,15 +48,23 @@ class RicardoMartins_PosCheckout_Adminhtml_PosCheckoutbackendController extends 
         $_products = array();
         foreach($product_collection as $_item)
         {
+            
+
+
 
             $_product = array(
                 'name' => $_item->getName(),
-                'final_price' => $_item->getFinalPrice(),
-                'image' => $_item->getImage(),
+                'final_price' => Mage::helper('core')->currency($_item->getFinalPrice(), true, false),
+                'image' => (string)Mage::helper('catalog/image')->init($_item, 'small_image')->resize(150),
                 'sku' => $_item->getSku(),
                 'short_description' => $_item->getShortDescription(),
-                'stock_item' => Mage::getModel('cataloginventory/stock_item')->loadByProduct($_item)->getQty(),
                 );
+
+            if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+                $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_item);
+                $_product['stock_item'] = $stock->getQty();
+                $_product['is_in_stock'] = ($stock->getIsInStock())?Mage::helper('cataloginventory')->__('In Stock'):Mage::helper('cataloginventory')->__('Out of Stock');
+            }
 
             $_products[] = $_product;
     
@@ -67,10 +75,8 @@ class RicardoMartins_PosCheckout_Adminhtml_PosCheckoutbackendController extends 
             'reduced' => $reduced,
             );
 
-        echo json_encode($result);
-    	// var_dump($product_collection);
-        // echo $product_collection->getQty();
-    	exit;
-    	// die( 'it works' . $form_key );
+
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode($result));
     }
 }
