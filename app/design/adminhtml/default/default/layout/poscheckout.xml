@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <poscheckout_adminhtml_poscheckoutbackend_index>
+	<reference name="content">
+	  <block type="poscheckout/adminhtml_poscheckoutbackend" name="poscheckoutbackend" template="poscheckout/poscheckoutbackend.phtml"/>
+	</reference>
+  </poscheckout_adminhtml_poscheckoutbackend_index>
+</layout>
