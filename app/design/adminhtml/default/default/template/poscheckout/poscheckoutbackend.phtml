@@ -1,0 +1,62 @@
+<div class="content-header">
+<table cellspacing="0">
+    <tr>
+        <td style="width:50%;"><h3 class="icon-head head-sales-invoice"><?php echo Mage::helper('poscheckout')->__('POS Fast Checkout') ?></h3></td>
+        <td class="a-right">
+            <?php echo $this->getButtonsHtml() ?>
+        </td>
+    </tr>
+</table>
+</div>
+<form action="<?php echo Mage::getUrl('poscheckout/adminhtml_poscheckoutbackend/checkout');?>" id="checkoutForm">
+	<div class="content">
+		<input name="query" id="query" placeholder="SKU or Product Name"/>
+		<input type="hidden" value="<?php echo $this->getFormKey()?>"/>
+		<input type="submit" value="Go"/>
+		<br/>
+		<input type="checkbox" name="reduce" id="reduce" value="1"/><label for="reduce"><?php echo $this->__('Decrease 1 qty from stock automatically when only one product was found');?></label>
+	</div>
+</form>
+<div id="results"></div>
+<script type="text/javascript">
+	document.observe("dom:loaded", function(){
+		$('query').focus();
+	});
+
+	Event.observe('checkoutForm','submit', function(event){
+		$('checkoutForm').request({
+			onFailure: function(){},
+			onSuccess: function(r){
+
+				// $('name').innerHTML = r.name;
+				var resp = r.responseText.evalJSON();
+				if(resp.error){
+					$$('.main-col-inner')[0].insert({before:transport.responseText.evalJSON().error});
+    				Element.hide('loading-mask');
+					alert(resp.error);
+					return false;
+				}
+
+				// alert(r.responseText);
+				console.log(resp.products);
+				var htmlOutput = '';
+				for(var i =0; i < resp.products.length; i++){
+					htmlOutput += '<div class="product">';
+					htmlOutput += '<div class="info">';
+					htmlOutput += '<img src="' + resp.products[i].image + '"/>';
+					htmlOutput += '<p class="name"><?php echo $this->__('Product name')?>: ' + resp.products[i].name + '</p>';
+					htmlOutput += '<p class="price"><?php echo $this->__('Price')?>: ' + resp.products[i].final_price + '</p>';
+					htmlOutput += '<p class="description"><?php echo $this->__('Description')?>: ' + resp.products[i].short_description + '</p>';
+					htmlOutput += '<p class="sku"><?php echo $this->__('SKU')?>: ' + resp.products[i].sku + '</p>';
+					htmlOutput += '<p class="stock"><?php echo $this->__('Quantity in stock')?>: ' + resp.products[i].stock_item + ' (' + resp.products[i].is_in_stock + ')</p>';
+					htmlOutput += '</div>';
+					htmlOutput += '</div>';
+
+					// console.log(resp.products[i]);
+				}
+				$('results').update(htmlOutput);
+			}
+		});
+		Event.stop(event);
+	});
+</script>
