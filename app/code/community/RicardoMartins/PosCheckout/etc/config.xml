@@ -2,7 +2,7 @@
 <config>
   <modules>
     <RicardoMartins_PosCheckout>
-      <version>0.1.0</version>
+      <version>0.1.1</version>
     </RicardoMartins_PosCheckout>
   </modules>
   <global>
@@ -38,8 +38,17 @@
 					<action>poscheckout/adminhtml_poscheckoutbackend</action>
 				</poscheckout>
 			</children>
-	</sales>
+		</sales>
 	</menu>
+	<translate>
+        <modules>
+            <RicardoMartins_PosCheckout>
+                <files>
+                    <default>RicardoMartins_PosCheckout.csv</default>
+                </files>
+            </RicardoMartins_PosCheckout>
+        </modules>
+    </translate>
 	<acl>
 	  <resources>
 		<all>

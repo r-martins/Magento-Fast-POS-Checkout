@@ -10,9 +10,9 @@
 </div>
 <form action="<?php echo Mage::getUrl('poscheckout/adminhtml_poscheckoutbackend/checkout');?>" id="checkoutForm">
 	<div class="content">
-		<input name="query" id="query" placeholder="SKU or Product Name"/>
+		<input name="query" id="query" placeholder="<?php echo Mage::helper('poscheckout')->__('SKU or Product Name');?>"/>
 		<input type="hidden" value="<?php echo $this->getFormKey()?>"/>
-		<input type="submit" value="Go"/>
+		<input type="submit" value="<?php echo $this->__('Search')?>"/>
 		<br/>
 		<input type="checkbox" name="reduce" id="reduce" value="1"/><label for="reduce"><?php echo $this->__('Decrease 1 qty from stock automatically when only one product was found');?></label>
 	</div>
