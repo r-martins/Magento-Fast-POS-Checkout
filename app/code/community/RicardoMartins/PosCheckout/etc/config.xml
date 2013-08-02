@@ -2,7 +2,7 @@
 <config>
   <modules>
     <RicardoMartins_PosCheckout>
-      <version>0.1.2</version>
+      <version>0.1.3</version>
     </RicardoMartins_PosCheckout>
   </modules>
   <global>
@@ -56,15 +56,15 @@
 		</all>
 		<admin>
 		  <children>
-			<poscheckout translate="title" module="poscheckout">
-			  <title>PosCheckout</title>
-			  <sort_order>1000</sort_order>
-			  <children>
-		  <poscheckoutbackend translate="title">
-			<title>POS Fast Checkout</title>
-		  </poscheckoutbackend>
-			  </children>
-			</poscheckout>
+		  	<sales>
+		  		<children>
+		  			<poscheckout translate="title" module="poscheckout">
+					  <title>POS Fast Checkout</title>
+					  <sort_order>1000</sort_order>
+					</poscheckout>
+		  		</children>
+		  	</sales>
+			
 		  </children>
 		</admin>
 	  </resources>
