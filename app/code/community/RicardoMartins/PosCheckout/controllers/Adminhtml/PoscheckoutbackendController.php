@@ -1,6 +1,12 @@
 <?php
 class RicardoMartins_PosCheckout_Adminhtml_PoscheckoutbackendController extends Mage_Adminhtml_Controller_Action
 {
+
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/poscheckout');
+    }
+
 	protected function _initAction(){
 		$this->loadLayout()->_setActiveMenu("poscheckout/poscheckoutbackend")->_addBreadcrumb(Mage::helper("adminhtml")->__("POS Fast Checkout"),Mage::helper("adminhtml")->__("POS Fast Checkout"));
 		return $this;
